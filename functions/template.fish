@@ -37,7 +37,9 @@ function template -S -d "Templating on your terminal"
 
       if string match -r -q $EXECUTION_BLOCK $match
         set -l cmd (string trim -c "{}=" $match)
-        set -l result (fish -c $cmd)
+        begin
+          fish -c $cmd
+        end | read -z result
         set template (string replace $match $result $template)
       end
 
